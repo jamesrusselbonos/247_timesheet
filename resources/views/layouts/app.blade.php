@@ -14,7 +14,8 @@
 
     
     <!-- Fonts -->
-
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" >
@@ -87,32 +88,22 @@ $(document).ready(function() {
 
     $(".time").click(function(){
 
-        var text = $('button').text();
+        var text = $('.time').text();
         var id = $(this).attr('id');
         var token = $(".card-body .hdn-token").val();
         var testID = $(this).attr('testID');
         var randd = Math.floor(Math.random() * 10000);
         var name = $(this).attr('name');
-
-        var d = new Date();
-
-        var month = d.getMonth()+1;
-        var day = d.getDate();
-
-        var curDate = d.getFullYear() + '-' + month + '-' + day;
-        var time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
-
-        var markup = "<tr><td> <b>" + name + "</b> </td><td>" + curDate + "</td><td>" + time + "</td><td>" + '' + "</td></tr>";
-        
+        $(".time").addClass('disabled');
+       $(".ic").removeAttr('hidden').addClass('fa-spin');
         
         var randId = randd;
         if( text == "Time In")
         {
             var rand1 = $(".time").attr('testId', randd);
             console.log(text);
-            $(".time").text('Time Out');
-            $(".time").removeClass('btn-primary').addClass('btn-danger');
-
+           
+            
             $.post('/timeIn/' + id,
 
              {'id':id, 'randId':randId, '_token':token}, 
@@ -120,7 +111,9 @@ $(document).ready(function() {
 
             console.log(id);
 
-                $("table tbody").append(markup);
+               $(".time").removeClass('btn-primary').addClass('btn-danger').removeClass('disabled');
+               $(".ic").addAttr('hidden').removeClass('fa-spin');
+               $(".time").text('Time Out');
             
 
              });      
@@ -128,15 +121,16 @@ $(document).ready(function() {
         else{
 
             
-            $(".time").text('Time In');
-            $(".time").removeClass('btn-danger').addClass('btn-primary');
-
+            
+           
             $.post('/timeOut/' + id,
 
              {'id':id, 'testID':testID,'_token':token}, 
              function(data){
-
-            console.log(randId);
+                $(".time").removeClass('btn-danger').addClass('btn-primary').removeClass('disabled');
+                $(".ic").addAttr('hidden').removeClass('fa-spin');
+                $(".time").text('Time In');
+            
 
              });      
         }

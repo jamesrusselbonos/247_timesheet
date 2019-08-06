@@ -109,7 +109,7 @@ class TimesheetController extends Controller
             $timeSheets->employee_id = $id;
             $timeSheets->date = date('Y-m-d');
             $users->status = "1";
-            $timeSheets->time_from = date('H:i:s');
+            $timeSheets->time_from = date('h:i:s');
             $timeSheets->id = $request->randId;
             
         // }
@@ -176,7 +176,7 @@ class TimesheetController extends Controller
         $users = User::find($userId);
         DB::table('timesheets')
                     ->where('id', $request->testID)
-                    ->update(['time_to' => date('H:i:s')]);
+                    ->update(['time_to' => date('h:i:s')]);
         
         // $timeSheets = TimeSheet::find(2222);
         // // $timeSheets = TimeSheet::find($request->randId);
