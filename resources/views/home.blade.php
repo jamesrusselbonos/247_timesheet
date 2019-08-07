@@ -46,8 +46,14 @@
 
                           <th scope="row">{{Auth::user()->name}}</th>
                           <td>{{$timeSheet->date}}</td>
-                          <td>{{$timeSheet->time_from}}</td>
-                         <td>{{$timeSheet->time_to}}</td>
+                          <td>{{date('h:i:s a', strtotime($timeSheet->time_from))}}</td>
+                          @if($timeSheet->time_to != null || $timeSheet->time_to != "")
+                          <td>{{date('h:i:s a', strtotime($timeSheet->time_to))}}</td>
+                          @else
+                          <td>{{$timeSheet->time_to}}</td>
+
+                          @endif
+                         
 
                         </tr>
                               
